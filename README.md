@@ -18,6 +18,21 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## commands
+
+# Setup
+npm install
+
+npm install jest @jest/globals jest-environment-jsdom --save-dev
+npm install cypress @testing-library/cypress start-server-and-test --save-dev
+ 
+# Jest
+npx jest
+npx jest --watchAll
+
+# Cypress
+npx cypress open
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
