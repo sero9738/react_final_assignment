@@ -1,0 +1,20 @@
+.iconButton {
+  padding: 0.3em;
+  display: flex;
+  gap: 0.5em;
+}
+
+.iconColorBlack {
+  background-color: white;
+  color: black;
+}
+
+.iconColorWhite {
+  background-color: black;
+  color: white;
+}
+
+.iconColorBlue {
+  background-color: white;
+  color: #0ea5e9;
+}
