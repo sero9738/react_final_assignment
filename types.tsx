@@ -25,6 +25,10 @@ export type User = {
   starredRooms: Array<Id>;
 };
 
+export type SessionUser = User & {
+  starredRooms: Array<Id>;
+};
+
 export type RentableRoom = {
   id: Id;
   type: "rentable";
@@ -47,9 +51,29 @@ export type PurchasableRoom = {
   };
 };
 
-export type Room = RentableRoom | PurchasableRoom;
+export type AdvertisedRoom = {
+  id: Id;
+  type: "advertised";
+  title: string;
+  description: string;
+  heroUrl: string;
+};
+
+export type Room = RentableRoom | PurchasableRoom | AdvertisedRoom;
 
 export type DbData = {
   sessionUser: User;
   rooms: Array<Room>;
+};
+
+export type CollectionPage = {
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  number: number;
+};
+
+export type Collection<Node> = {
+  page: CollectionPage;
+  nodes: Array<Node>;
 };

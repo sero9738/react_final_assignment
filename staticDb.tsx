@@ -105,9 +105,9 @@ const rooms: Array<Room> = Array.from({ length: 20 }).map((value, index) => {
   }
 });
 
-const db: DbData = {
+const staticDb: DbData = {
   sessionUser: users[0],
   rooms
 };
 
-export default db;
+export default staticDb;

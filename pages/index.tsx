@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css'
 import Header from "../components/Header/Header";
 import Content from "../components/Content/Content";
 import RoomComponent from "../components/RoomComponent/RoomComponent";
-import Db from "../db";
+import Db from "../staticDb";
 
 export default function Home() {
   var rooms = Db.rooms;

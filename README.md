@@ -25,7 +25,11 @@ npm install
 
 npm install jest @jest/globals jest-environment-jsdom --save-dev
 npm install cypress @testing-library/cypress start-server-and-test --save-dev
+npm install lowdb@4
  
+# Start
+npm run dev
+
 # Jest
 npx jest
 npx jest --watchAll
