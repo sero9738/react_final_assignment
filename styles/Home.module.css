@@ -3,8 +3,15 @@
   background-color: white;
 }
 
-.container {
-  padding: 0 2rem;
+.roomsContainer {
+  width: 1200px;
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  flex-wrap: wrap;
+  overflow: hidden;
+  padding-block: 1em;
 }
 
 .main {

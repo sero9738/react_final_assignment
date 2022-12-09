@@ -29,11 +29,13 @@ export default function RoomComponent({
           <Text
             value={room.title}
             type={TextType.HEADLINE}
+            size="MEDIUM"
             colorSchema={ColorSchema.BLACK}
           />
           <Text
             value={room.description}
             type={TextType.TEXT}
+            size="MEDIUM"
             colorSchema={ColorSchema.BLACK}
           />
         </div>
@@ -46,12 +48,14 @@ export default function RoomComponent({
               rentableRoom.owner.firstName + " " + rentableRoom.owner.lastName
             }
             type={TextType.TEXT}
+            size="MEDIUM"
             colorSchema={ColorSchema.BLACK}
           />
           <IconButton
             icon={ValidIcons.STAR}
             colorSchema={ColorSchema.BLUE}
-            onClickCallback={() => onClickCallback}
+            onClickCallback={onClickCallback}
+            enabled={true}
           />
         </div>
       </div>
@@ -68,11 +72,13 @@ export default function RoomComponent({
           <Text
             value={room.title}
             type={TextType.HEADLINE}
+            size="MEDIUM"
             colorSchema={ColorSchema.BLUE}
           />
           <Text
             value={room.description}
             type={TextType.TEXT}
+            size="MEDIUM"
             colorSchema={ColorSchema.BLACK}
           />
         </div>
@@ -85,6 +91,7 @@ export default function RoomComponent({
               purchasbleRoom.price.currency
             }
             type={TextType.TEXT}
+            size="MEDIUM"
             colorSchema={ColorSchema.BLUE}
           />
         </div>

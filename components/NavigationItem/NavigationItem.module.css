@@ -1,0 +1,19 @@
+.navItem {
+    height: 40px;
+    margin-inline: 0.2em;
+    padding-inline: 0.5em;
+    border: 0;
+    border-bottom: 4px solid rgb(240, 248, 255);
+    border-radius: 0;
+    background-color: aliceblue;
+    text-align: left;
+  }
+  
+  .navItem:hover {
+    border-bottom: 4px solid rgb(0, 178, 0);
+  }
+  
+  .selectedNavItem {
+    border-bottom: 4px solid green;
+  }
+  

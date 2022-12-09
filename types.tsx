@@ -15,6 +15,13 @@ export enum ValidIcons {
   STAR = "STAR",
   HEART = "HEART",
   PLUS = "PLUS",
+  ARROWLEFT = "ARROWLEFT",
+  ARROWRIGHT = "ARROWRIGHT"
+}
+
+export enum Route {
+  CREATE = "CREATE",
+  LIST = "LIST",
 }
 
 export type User = {
