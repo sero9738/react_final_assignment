@@ -6,6 +6,7 @@ import Header from "../components/Header/Header";
 import Navigation from "../components/Navigation/Navigation";
 import Content from "../components/Content/Content";
 import RoomComponent from "../components/RoomComponent/RoomComponent";
+import CreateRoomForm from "../components/CreateRoomForm/CreateRoomForm";
 import Pagination from "../components/Pagination/Pagination";
 import Db from "../staticDb";
 import { Route } from "../types";
@@ -30,6 +31,9 @@ export default function Home() {
   return (
     <RoomsContext.Provider value={Db.rooms}>
       <div>
+        <Head>
+          <title>Final Assignment - Rooms Rental Application</title>
+        </Head>
         <Header title="Arrrbnb">
           <Navigation
             currentRoute={route}
@@ -54,7 +58,7 @@ export default function Home() {
               />
             </div>
           ) : (
-            <p>Create form</p>
+            <CreateRoomForm />
           )}
         </Content>
       </div>

@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  padding-top: 5em;
+}
+
+.form {
+  width: 1200px;
+}
+
+.itemRow {
+  display: flex;
+  gap: 2em;
+  margin-block: 2em;
+}
+
+.submitButton {
+  color: #eff6ff;
+  background-color: #0ea5e9;
+  padding: 0.3em;
+  width: 150px;
+  border-radius: 0.2em;
+}
+
+.submitButton:hover {
+    background-color: rgb(24, 175, 243);
+  }
