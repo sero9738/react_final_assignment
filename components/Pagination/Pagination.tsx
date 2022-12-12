@@ -1,69 +1,41 @@
 import React, { useContext } from "react";
+import { useRouter } from "next/router";
 import styles from "./Pagination.module.css";
 import IconButton from "../IconButton/IconButton";
 import Text from "../Text/Text";
-import { ValidIcons } from "../../types";
+import { Collection, CollectionPage, ValidIcons } from "../../types";
 import { ColorSchema } from "../../types";
 import { TextType } from "../../types";
 import { Room } from "../../types";
 import { RoomsContext } from "../../contexts";
+import { NodeNextRequest } from "next/dist/server/base-http/node";
 
 interface PaginationProps {
-  onChangePage: (value: Room[]) => any;
-  initialPage: number;
-  pageSize: number;
+  collection: Collection<Room>;
 }
 
-export default function Pagination({
-  onChangePage,
-  initialPage = 1,
-  pageSize = 9,
-}: PaginationProps) {
-  const [items, setItems] = React.useState<Room[]>(useContext(RoomsContext));
-  const [currentPage, setCurrentPage] = React.useState(initialPage);
-  const [totalPages, setTotalPages] = React.useState<number>(0);
+export default function Pagination({ collection }: PaginationProps) {
+  const router = useRouter();
 
-  React.useEffect(() => {
-    setTotalPages(Math.ceil(items.length / pageSize));
-  }, [items, pageSize]);
+  function goToPreviousPage() {
+    router.push("/rooms?page=" + (collection.page.number - 1));
+  }
 
-  const getItemsOfCurrentPage = (page: number) => {
-    const startIndex = (page - 1) * pageSize;
-    const endIndex = page * pageSize;
-    const paginatedItems = items.slice(startIndex, endIndex);
-    return paginatedItems;
-  };
+  function goToNextPage() {
+    router.push("/rooms?page=" + (collection.page.number + 1));
+  }
 
-  const goToPreviousPage = () => {
-    handlePageChange(currentPage - 1);
-  };
-
-  const goToNextPage = () => {
-    handlePageChange(currentPage + 1);
-  };
-
-  const handlePageChange = (page: any) => {
-    setCurrentPage(page);
-    onChangePage(getItemsOfCurrentPage(page));
-  };
-
-  return (
-    <div className={styles.container}>
+  if (collection == undefined) {
+    return (
+      <div className={styles.container}>
       <IconButton
         icon={ValidIcons.ARROWLEFT}
         colorSchema={ColorSchema.BLUE}
         onClickCallback={goToPreviousPage}
-        enabled={currentPage > 1 ? true : false}
+        enabled={false}
       />
       <Text
-        value={
-          "Page: " +
-          currentPage +
-          " from " +
-          totalPages +
-          " : Total Elements " +
-          items.length
-        }
+        value="Loading"
         type={TextType.TEXT}
         size="MEDIUM"
         colorSchema={ColorSchema.BLACK}
@@ -72,8 +44,41 @@ export default function Pagination({
         icon={ValidIcons.ARROWRIGHT}
         colorSchema={ColorSchema.BLUE}
         onClickCallback={goToNextPage}
-        enabled={currentPage < totalPages ? true : false}
+        enabled={false}
       />
     </div>
-  );
+    );
+  } else {
+    return (
+      <div className={styles.container}>
+        <IconButton
+          icon={ValidIcons.ARROWLEFT}
+          colorSchema={ColorSchema.BLUE}
+          onClickCallback={goToPreviousPage}
+          enabled={collection.page.number > 1 ? true : false}
+        />
+        <Text
+          value={
+            "Page: " +
+            collection.page.number +
+            " from " +
+            collection.page.totalPages +
+            " : Total Elements " +
+            collection.page.totalElements
+          }
+          type={TextType.TEXT}
+          size="MEDIUM"
+          colorSchema={ColorSchema.BLACK}
+        />
+        <IconButton
+          icon={ValidIcons.ARROWRIGHT}
+          colorSchema={ColorSchema.BLUE}
+          onClickCallback={goToNextPage}
+          enabled={
+            collection.page.number < collection.page.totalPages ? true : false
+          }
+        />
+      </div>
+    );
+  }
 }

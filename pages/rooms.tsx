@@ -4,55 +4,90 @@ import Content from "../components/Content/Content";
 import RoomComponent from "../components/RoomComponent/RoomComponent";
 import Pagination from "../components/Pagination/Pagination";
 import Db from "../db";
-import { DbData, Room, Route, User } from "../types";
+import {
+  Collection,
+  CollectionPage,
+  DbData,
+  Room,
+  Route,
+  User,
+} from "../types";
 import { RoomsContext } from "../contexts";
+import { NumberParam } from "serialize-query-params";
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: {
+  query: { page: string | (string | null)[] | null | undefined };
+}) {
   const data = await Db.read();
   return {
     props: {
       sessionUser: data.sessionUser,
-      rooms: data.rooms
-    }
-  }
+      rooms: paginate(
+        data.rooms,
+        NumberParam.decode(context.query.page) || 1,
+        9
+      ),
+      collection: createCollection(
+        data.rooms,
+        9,
+        NumberParam.decode(context.query.page) || 1
+      ),
+    },
+  };
+}
+
+function paginate(itemsSet: Room[], page: number, pageSize: number) {
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = page * pageSize;
+  const paginatedItems = itemsSet.slice(startIndex, endIndex);
+  return paginatedItems;
+}
+
+function createCollection(nodes: Array<Room>, size: number, number: number) {
+  const page: CollectionPage = {
+    size: size,
+    totalElements: nodes.length,
+    totalPages: Math.ceil(nodes.length / size),
+    number: number,
+  };
+
+  const collection: Collection<Room> = {
+    page: page,
+    nodes: nodes,
+  };
+  return collection;
 }
 
 interface RoomsProps {
   sessionUser: User;
   rooms: Room[];
+  collection: Collection<Room>;
 }
 
-export default function Rooms({sessionUser, rooms}: RoomsProps) {
-  const [items, setItems] = React.useState<Room[]>(rooms);
-  const [currentItems, setCurrentItems] = React.useState<Room[]>(rooms.slice(0, 9));
-
+export default function Rooms({ sessionUser, rooms, collection }: RoomsProps) {
   function onButtonClicked() {
     alert("Button clicked!");
   }
 
-  function onPaginationPageChanged(value: Room[]) {
-    setCurrentItems(value);
-  }
+  React.useEffect(() => {
+    
+  });
 
-  if (items != undefined && currentItems != undefined) {
+  if (rooms != undefined && rooms != undefined) {
     return (
-      <RoomsContext.Provider value={items}>
+      <RoomsContext.Provider value={rooms}>
         <div>
           <Content>
             <div>
               <div className={styles.roomsContainer}>
-                {currentItems.map((room) => (
+                {rooms.map((room) => (
                   <RoomComponent
                     room={room}
                     onClickCallback={onButtonClicked}
                   />
                 ))}
               </div>
-              <Pagination
-                onChangePage={onPaginationPageChanged}
-                initialPage={1}
-                pageSize={9}
-              />
+              <Pagination collection={collection} />
             </div>
           </Content>
         </div>
