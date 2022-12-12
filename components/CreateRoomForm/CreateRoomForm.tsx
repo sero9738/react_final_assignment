@@ -1,27 +1,54 @@
-import React, { useRef } from "react";
+import React, { useRef, FormEvent } from "react";
+import { useRouter } from "next/router";
 import styles from "./CreateRoomForm.module.css";
 import InputField from "../InputField/InputField";
 import Text from "../Text/Text";
 import { ColorSchema } from "../../types";
 import { TextType } from "../../types";
+import HttpError from "../../services/HttpError";
+import CreateService from "../../services/CreatService";
+import usePromised from "use-promised";
 
 export default function CreateRoomForm() {
+  const router = useRouter();
+  const [submitPromise, setSubmitPromise] = usePromised<void, HttpError>();
+
   const titleInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLInputElement>(null);
   const imageUrlInputRef = useRef<HTMLInputElement>(null);
 
-  function onSubmit(event: React.SyntheticEvent) {
+  function onSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if (titleInputRef.current != null && descriptionInputRef.current != null && imageUrlInputRef.current != null) {
-        //Create new room
-    }
+    const form = event.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
 
-    resetForm();
+    const input = {
+      title: formData.get("Title") as string,
+      desciption: formData.get("Description") as string,
+      image: formData.get("Hero image URL") as string,
+    };
+
+    debugger;
+
+    const promise = CreateService.post(
+      input.title,
+      input.desciption,
+      input.image,
+      false
+    )
+      .then(() => router.push("/rooms"))
+      .then(() => form.reset());
+
+    setSubmitPromise(promise);
   }
 
   function resetForm() {
-    if (titleInputRef.current != null && descriptionInputRef.current != null && imageUrlInputRef.current != null) {
+    if (
+      titleInputRef.current != null &&
+      descriptionInputRef.current != null &&
+      imageUrlInputRef.current != null
+    ) {
       titleInputRef.current.value = "";
       descriptionInputRef.current.value = "";
       imageUrlInputRef.current.value = "";

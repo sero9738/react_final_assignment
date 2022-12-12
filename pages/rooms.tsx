@@ -4,23 +4,27 @@ import Content from "../components/Content/Content";
 import RoomComponent from "../components/RoomComponent/RoomComponent";
 import Pagination from "../components/Pagination/Pagination";
 import Db from "../db";
-import { DbData, Room, Route } from "../types";
+import { DbData, Room, Route, User } from "../types";
 import { RoomsContext } from "../contexts";
 
-export default function Rooms() {
-  const [items, setItems] = React.useState<Room[]>([]);
-  const [currentItems, setCurrentItems] = React.useState<Room[]>([]);
+export async function getServerSideProps() {
+  const data = await Db.read();
+  return {
+    props: {
+      sessionUser: data.sessionUser,
+      rooms: data.rooms
+    }
+  }
+}
 
-  React.useEffect(() => {
-    const dbData = Db.read()
-      .then((data) => {
-        setItems(data.rooms);
-        setCurrentItems(data.rooms.slice(0, 9));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+interface RoomsProps {
+  sessionUser: User;
+  rooms: Room[];
+}
+
+export default function Rooms({sessionUser, rooms}: RoomsProps) {
+  const [items, setItems] = React.useState<Room[]>(rooms);
+  const [currentItems, setCurrentItems] = React.useState<Room[]>(rooms.slice(0, 9));
 
   function onButtonClicked() {
     alert("Button clicked!");

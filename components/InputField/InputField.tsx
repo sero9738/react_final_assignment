@@ -21,7 +21,7 @@ export default function InputField({ label, inputRef }: InputFieldProps) {
         />
       </div>
       <div className={styles.inputContainer}>
-        <input className={styles.input} ref={inputRef} type="text" required={true} />
+        <input className={styles.input} ref={inputRef} type="text" name={label} required={true} />
       </div>
     </div>
   );

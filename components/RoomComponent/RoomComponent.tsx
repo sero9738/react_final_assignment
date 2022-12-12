@@ -2,12 +2,13 @@ import React from "react";
 import styles from "./RoomComponent.module.css";
 import Text from "../Text/Text";
 import IconButton from "../IconButton/IconButton";
-import { Room } from "../../types";
-import { RentableRoom } from "../../types";
-import { PurchasableRoom } from "../../types";
-import { ColorSchema } from "../../types";
-import { TextType } from "../../types";
-import { ValidIcons } from "../../types";
+import {
+  Room,
+  RentableRoom,
+  PurchasableRoom,
+  AdvertisedRoom,
+} from "../../types";
+import { ColorSchema, TextType, ValidIcons } from "../../types";
 
 interface RoomComponentProps {
   room: Room;
@@ -20,8 +21,21 @@ export default function RoomComponent({
 }: RoomComponentProps) {
   if (room.type === "rentable") {
     var rentableRoom = room as RentableRoom;
+
     return (
       <div className={styles.roomComponentContainer}>
+        {rentableRoom.featured ? (
+          <div className={styles.featuredLabel + " " + styles.floatingLabel}>
+            <Text
+              value="FEATURED"
+              type={TextType.HEADLINE}
+              size="SMALL"
+              colorSchema={ColorSchema.BLUE}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         <div className={styles.image}>
           <img src={room.heroUrl} className={styles.center}></img>
         </div>
@@ -56,6 +70,38 @@ export default function RoomComponent({
             colorSchema={ColorSchema.BLUE}
             onClickCallback={onClickCallback}
             enabled={true}
+          />
+        </div>
+      </div>
+    );
+  } else if (room.type === "advertised") {
+    var advertisedRoom = room as AdvertisedRoom;
+
+    return (
+      <div className={styles.roomComponentContainer}>
+        <div className={styles.advertisedLabel + " " + styles.floatingLabel}>
+          <Text
+            value="AD"
+            type={TextType.HEADLINE}
+            size="SMALL"
+            colorSchema={ColorSchema.WHITE}
+          />
+        </div>
+        <div className={styles.image}>
+          <img src={room.heroUrl} className={styles.center}></img>
+        </div>
+        <div className={styles.description + " " + styles.advertised}>
+          <Text
+            value={room.title}
+            type={TextType.HEADLINE}
+            size="MEDIUM"
+            colorSchema={ColorSchema.WHITE}
+          />
+          <Text
+            value={room.description}
+            type={TextType.TEXT}
+            size="MEDIUM"
+            colorSchema={ColorSchema.WHITE}
           />
         </div>
       </div>

@@ -2,6 +2,7 @@
     width: 300px;
     background-color: white;
     border: 1px solid lightgrey;
+    position: relative;
 }
 
 .image {
@@ -20,7 +21,7 @@
 
 .description {
     width: 100%;
-    height: 100px;
+    height: 110px;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -43,4 +44,28 @@
     display: flex;
     gap: 0.5em;
     justify-content: flex-end;
+}
+
+.advertised {
+    background-color: #0284c7;
+    height: 165px;
+    border-bottom: 0px solid lightgrey;
+}
+
+.floatingLabel {
+    padding-inline: 0.3em;
+    border-radius: 0.2em;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right: 0.3em;
+    top: 0.3em;
+}
+
+.featuredLabel {
+    background-color: white;
+}
+
+.advertisedLabel {
+    background-color: #0284c7;
 }
