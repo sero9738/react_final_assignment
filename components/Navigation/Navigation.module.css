@@ -1,0 +1,19 @@
+.nav {
+  display: flex;
+  justify-content: left;
+  gap: 0.5em;
+}
+
+.linkWrapper {
+  background-color: white;
+  width: 150px;
+  margin-right: 2em;
+  padding: 0.5em;
+  border-radius: 0.2em;
+  display: flex;
+  justify-content: center;
+}
+
+.linkWrapper:hover {
+  background-color: lightgray;
+}

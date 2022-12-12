@@ -1,30 +1,22 @@
 import NavigationItem from "../NavigationItem/NavigationItem";
+import Link from "next/link";
+import styles from "./Navigation.module.css";
 
-interface NavigationProps {
-    currentRoute: string;
-    setRouteCallback: any;
-  }
-  
-  function Navigation({
-    currentRoute,
-    setRouteCallback,
-  }: NavigationProps) {
-    return (
-      <nav id="nav">
-        <NavigationItem
-          name={"LIST"}
-          route={"LIST"}
-          currentRoute={currentRoute}
-          setRouteCallback={setRouteCallback}
-        />
-        <NavigationItem
-          name={"CREATE"}
-          route={"CREATE"}
-          currentRoute={currentRoute}
-          setRouteCallback={setRouteCallback}
-        />
-      </nav>
-    );
-  }
-  
-  export default Navigation;
+function Navigation() {
+  return (
+    <nav className={styles.nav}>
+      <div className={styles.linkWrapper}>
+        <Link className={styles.link} href="/rooms">
+          Cabins
+        </Link>
+      </div>
+      <div className={styles.linkWrapper}>
+        <Link className={styles.link} href="/create">
+          Add cabins
+        </Link>
+      </div>
+    </nav>
+  );
+}
+
+export default Navigation;
