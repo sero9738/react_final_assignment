@@ -2,6 +2,7 @@
   background-color: #0284c7;
   height: 50px;
   display: flex;
+  position: relative;
 }
 
 .title {
