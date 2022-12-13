@@ -9,20 +9,29 @@
         "titleInputField": "Title",
         "descriptionInputField": "Description",
         "imageUrlInputField": "Hero image Url",
+        "wrongImagePatternMessage": "Invalid data received, please check if your image url is correct.",
+        "featuredCheckboxLabel": "Featured",
         "submitButton": "Add cabin"
     },
     "RoomComponent": {
         "featuredLabel": "FEATURED",
         "adLabel": "AD",
-        "purchaseText": "Buy at "
+        "purchaseText": "Buy at ",
+        "starredButton": "starred button",
+        "heroImgAlt": "Cabin specific hero image",
+        "ownerImgAlt": "Profil picture of owner of the cabin"
     },
     "Pagination": {
         "loading": "Loading",
         "pageText": "Page: ",
         "fromText": " from ",
-        "totalText": " : Total Elements "
+        "totalText": " : Total Elements ",
+        "previousButton": "previous page",
+        "nextButton": "next page"
+
     },
-    "User": {
+    "Login": {
+        "userImageAlt": "User profil picture",
         "unvalidInfo": "No starred cabins",
         "starredInfo": " starred cabin"
     }

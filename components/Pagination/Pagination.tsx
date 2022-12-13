@@ -32,6 +32,7 @@ export default function Pagination({ collection }: PaginationProps) {
     return (
       <div className={styles.container}>
         <IconButton
+          name={t("previousButton")}
           icon={ValidIcons.ARROWLEFT}
           colorSchema={ColorSchema.BLUE}
           onClickCallback={goToPreviousPage}
@@ -44,6 +45,7 @@ export default function Pagination({ collection }: PaginationProps) {
           colorSchema={ColorSchema.BLACK}
         />
         <IconButton
+          name={t("nextButton")}
           icon={ValidIcons.ARROWRIGHT}
           colorSchema={ColorSchema.BLUE}
           onClickCallback={goToNextPage}
@@ -55,6 +57,7 @@ export default function Pagination({ collection }: PaginationProps) {
     return (
       <div className={styles.container}>
         <IconButton
+          name={t("previousButton")}
           icon={ValidIcons.ARROWLEFT}
           colorSchema={ColorSchema.BLUE}
           onClickCallback={goToPreviousPage}
@@ -74,6 +77,7 @@ export default function Pagination({ collection }: PaginationProps) {
           colorSchema={ColorSchema.BLACK}
         />
         <IconButton
+          name={t("nextButton")}
           icon={ValidIcons.ARROWRIGHT}
           colorSchema={ColorSchema.BLUE}
           onClickCallback={goToNextPage}

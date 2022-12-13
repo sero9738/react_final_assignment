@@ -16,6 +16,19 @@
   margin-block: 2em;
 }
 
+.featuredCheckboxContainer{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 80px;
+}
+
+.featuredCheckbox {
+  width: 25px;
+  height: 25px;
+  margin-inline: 0.4em;
+}
+
 .submitButton {
   color: #eff6ff;
   background-color: #0ea5e9;

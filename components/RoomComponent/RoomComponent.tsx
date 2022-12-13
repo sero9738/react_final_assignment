@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./RoomComponent.module.css";
 import Text from "../Text/Text";
 import IconButton from "../IconButton/IconButton";
 import { useTranslations } from "next-intl";
-import {
-  Room,
-  RentableRoom,
-  PurchasableRoom,
-  AdvertisedRoom,
-} from "../../types";
+import { SessionUserContext } from "../../contexts";
+import { Room, RentableRoom, PurchasableRoom, User } from "../../types";
 import { ColorSchema, TextType, ValidIcons } from "../../types";
 
 interface RoomComponentProps {
   room: Room;
-  onClickCallback: () => any;
+  onClickCallback: (room: Room) => any;
 }
 
 export default function RoomComponent({
@@ -21,6 +17,7 @@ export default function RoomComponent({
   onClickCallback,
 }: RoomComponentProps) {
   const t = useTranslations("RoomComponent");
+  const sessionUser: User | undefined = useContext(SessionUserContext);
 
   if (room.type === "rentable") {
     var rentableRoom = room as RentableRoom;
@@ -40,7 +37,11 @@ export default function RoomComponent({
           ""
         )}
         <div className={styles.image}>
-          <img src={room.heroUrl} className={styles.center}></img>
+          <img
+            src={room.heroUrl}
+            alt={t("heroImgAlt")}
+            className={styles.center}
+          />
         </div>
         <div className={styles.description}>
           <Text
@@ -58,7 +59,7 @@ export default function RoomComponent({
         </div>
         <div className={styles.owner}>
           <div className={styles.userImage}>
-            <img src={rentableRoom.owner.portraitUrl} />
+            <img src={rentableRoom.owner.portraitUrl} alt={t("ownerImgAlt")} />
           </div>
           <Text
             value={
@@ -69,17 +70,16 @@ export default function RoomComponent({
             colorSchema={ColorSchema.BLACK}
           />
           <IconButton
+            name={t("starredButton")}
             icon={ValidIcons.STAR}
             colorSchema={ColorSchema.BLUE}
-            onClickCallback={onClickCallback}
+            onClickCallback={() => onClickCallback(room)}
             enabled={true}
           />
         </div>
       </div>
     );
   } else if (room.type === "advertised") {
-    var advertisedRoom = room as AdvertisedRoom;
-
     return (
       <div className={styles.roomComponentContainer}>
         <div className={styles.advertisedLabel + " " + styles.floatingLabel}>
@@ -91,7 +91,11 @@ export default function RoomComponent({
           />
         </div>
         <div className={styles.image}>
-          <img src={room.heroUrl} className={styles.center}></img>
+          <img
+            src={room.heroUrl}
+            alt={t("heroImgAlt")}
+            className={styles.center}
+          />
         </div>
         <div className={styles.description + " " + styles.advertised}>
           <Text
@@ -115,7 +119,11 @@ export default function RoomComponent({
     return (
       <div className={styles.roomComponentContainer}>
         <div className={styles.image}>
-          <img src={room.heroUrl} className={styles.center}></img>
+          <img
+            src={room.heroUrl}
+            alt={t("heroImgAlt")}
+            className={styles.center}
+          />
         </div>
         <div className={styles.description}>
           <Text

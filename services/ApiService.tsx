@@ -8,7 +8,7 @@ export default class ApiService {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(room),
+      body: JSON.stringify(room)
     }).then((response) => {
       if (!response.ok) {
         throw new HttpError(response.status);

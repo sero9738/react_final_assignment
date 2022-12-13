@@ -6,10 +6,9 @@ import { TextType } from "../../types";
 
 interface InputFieldProps {
   label: string;
-  inputRef: any;
 }
 
-export default function InputField({ label, inputRef }: InputFieldProps) {
+export default function InputField({ label}: InputFieldProps) {
   return (
     <div className={styles.container}>
       <div className={styles.label}>
@@ -21,7 +20,7 @@ export default function InputField({ label, inputRef }: InputFieldProps) {
         />
       </div>
       <div className={styles.inputContainer}>
-        <input className={styles.input} ref={inputRef} type="text" name={label} required={true} />
+        <input className={styles.input} type="text" aria-label={label} name={label} required={true} />
       </div>
     </div>
   );

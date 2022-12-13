@@ -3,30 +3,17 @@ import styles from "./Login.module.css";
 import Text from "../Text/Text";
 import { useTranslations } from "next-intl";
 import { User, ColorSchema, TextType, ValidIcons } from "../../types";
-import { setEmitFlags } from "typescript";
-import { SessionUserContext } from "../../pages/_app";
-
-interface UserProps {
-  sessionUser?: User | undefined;
-}
+import { SessionUserContext } from "../../contexts";
 
 export default function Login() {
-  const t = useTranslations("User");
-
-  //const sessionUser: User | undefined = useContext(SessionUserContext);
-  const sessionUser: User = {
-    id: 0,
-    firstName: "Susan",
-    lastName: "Taylor",
-    portraitUrl: "https://i.pravatar.cc/300?img=35",
-    starredRooms: [3],
-  };
+  const t = useTranslations("Login");
+  const sessionUser: User | undefined = useContext(SessionUserContext);
 
   if (sessionUser != undefined) {
     return (
       <div className={styles.loginContainer}>
         <div className={styles.userImage}>
-          <img src={sessionUser.portraitUrl} />
+          <img src={sessionUser.portraitUrl} alt={t("userImageAlt")} />
         </div>
         <div className={styles.userInformation}>
           <Text

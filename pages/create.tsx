@@ -1,6 +1,7 @@
 import React from "react";
-import { GetStaticPropsContext } from "next";
+import Head from "next/head";
 import CreateRoomForm from "../components/CreateRoomForm/CreateRoomForm";
+import { GetStaticPropsContext } from "next";
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
   return {
@@ -11,5 +12,12 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 }
 
 export default function Create() {
-  return <CreateRoomForm />;
+  return (
+    <div>
+      <Head>
+        <title>Room Rentals - Create</title>
+      </Head>
+      <CreateRoomForm />
+    </div>
+  );
 }

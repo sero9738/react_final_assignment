@@ -1,19 +1,13 @@
-import React from "react";
-import { GetStaticPropsContext } from "next";
+import React, { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Content from "../components/Content/Content";
 import RoomComponent from "../components/RoomComponent/RoomComponent";
 import Pagination from "../components/Pagination/Pagination";
+import Login from "../components/Login/Login";
 import Db from "../db";
-import {
-  Collection,
-  CollectionPage,
-  DbData,
-  Room,
-  Route,
-  User,
-} from "../types";
-import { RoomsContext } from "../contexts";
+import Head from "next/head";
+import { Collection, CollectionPage, Room, User } from "../types";
+import { RoomsContext, SessionUserContext } from "../contexts";
 import { NumberParam } from "serialize-query-params";
 
 export async function getServerSideProps(context: {
@@ -67,31 +61,55 @@ interface RoomsProps {
 }
 
 export default function Rooms({ sessionUser, rooms, collection }: RoomsProps) {
-  function onButtonClicked() {
-    alert("Button clicked!");
-  }
+  const [sessionUserState, setSessionUserState] = useState<User>(sessionUser);
 
-  React.useEffect(() => {});
+  function onButtonClicked(room: Room) {
+    if (sessionUser != undefined) {
+      debugger;
+      if (sessionUser.starredRooms.includes(room.id)) {
+        return;
+      }
+
+      const newSessionUser: User = {
+        id: sessionUserState.id,
+        firstName: sessionUserState.firstName,
+        lastName: sessionUserState.lastName,
+        portraitUrl: sessionUserState.portraitUrl,
+        starredRooms: sessionUserState.starredRooms,
+      };
+      newSessionUser.starredRooms.unshift(room.id);
+      setSessionUserState(newSessionUser);
+    } else {
+      alert("No current sessionUser.");
+    }
+  }
 
   if (rooms != undefined && rooms != undefined) {
     return (
-      <RoomsContext.Provider value={rooms}>
-        <div>
-          <Content>
-            <div>
-              <div className={styles.roomsContainer}>
-                {rooms.map((room) => (
-                  <RoomComponent
-                    room={room}
-                    onClickCallback={onButtonClicked}
-                  />
-                ))}
+      <SessionUserContext.Provider value={sessionUserState}>
+        <RoomsContext.Provider value={rooms}>
+          <Head>
+            <title>Room Rentals - Rooms</title>
+          </Head>
+          <div>
+            <Login />
+            <Content>
+              <div>
+                <div className={styles.roomsContainer}>
+                  {rooms.map((room) => (
+                    <RoomComponent
+                      key={room.id}
+                      room={room}
+                      onClickCallback={onButtonClicked}
+                    />
+                  ))}
+                </div>
+                <Pagination collection={collection} />
               </div>
-              <Pagination collection={collection} />
-            </div>
-          </Content>
-        </div>
-      </RoomsContext.Provider>
+            </Content>
+          </div>
+        </RoomsContext.Provider>
+      </SessionUserContext.Provider>
     );
   } else {
     return <div>Loading...</div>;
