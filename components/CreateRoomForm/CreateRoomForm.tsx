@@ -1,4 +1,5 @@
 import React, { useRef, FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import styles from "./CreateRoomForm.module.css";
 import InputField from "../InputField/InputField";
@@ -10,6 +11,7 @@ import CreateService from "../../services/CreatService";
 import usePromised from "use-promised";
 
 export default function CreateRoomForm() {
+  const t = useTranslations("CreateRoomForm");
   const router = useRouter();
   const [submitPromise, setSubmitPromise] = usePromised<void, HttpError>();
 
@@ -61,7 +63,7 @@ export default function CreateRoomForm() {
       <form className={styles.form} onSubmit={(event) => onSubmit(event)}>
         <div className={styles.itemRow}>
           <Text
-            value="Add rentable cabin"
+            value={t("title")}
             type={TextType.HEADLINE}
             size="LARGE"
             colorSchema={ColorSchema.BLACK}
@@ -69,15 +71,21 @@ export default function CreateRoomForm() {
         </div>
 
         <div className={styles.itemRow}>
-          <InputField inputRef={titleInputRef} label="Title" />
-          <InputField inputRef={descriptionInputRef} label="Description" />
+          <InputField inputRef={titleInputRef} label={t("titleInputField")} />
+          <InputField
+            inputRef={descriptionInputRef}
+            label={t("descriptionInputField")}
+          />
         </div>
         <div className={styles.itemRow}>
-          <InputField inputRef={imageUrlInputRef} label="Hero image URL" />
+          <InputField
+            inputRef={imageUrlInputRef}
+            label={t("imageUrlInputField")}
+          />
         </div>
         <div className={styles.itemRow}>
           <button type="submit" className={styles.submitButton}>
-            Add cabin
+            {t("submitButton")}
           </button>
         </div>
       </form>

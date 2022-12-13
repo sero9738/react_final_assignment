@@ -58,7 +58,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## TODO
 
-- Pagination Routing
 - I18L Labels
 - SessionUser
 - Starring Rooms

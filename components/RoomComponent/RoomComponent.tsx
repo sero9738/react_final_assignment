@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./RoomComponent.module.css";
 import Text from "../Text/Text";
 import IconButton from "../IconButton/IconButton";
+import { useTranslations } from "next-intl";
 import {
   Room,
   RentableRoom,
@@ -19,6 +20,8 @@ export default function RoomComponent({
   room,
   onClickCallback,
 }: RoomComponentProps) {
+  const t = useTranslations("RoomComponent");
+
   if (room.type === "rentable") {
     var rentableRoom = room as RentableRoom;
 
@@ -27,7 +30,7 @@ export default function RoomComponent({
         {rentableRoom.featured ? (
           <div className={styles.featuredLabel + " " + styles.floatingLabel}>
             <Text
-              value="FEATURED"
+              value={t("featuredLabel")}
               type={TextType.HEADLINE}
               size="SMALL"
               colorSchema={ColorSchema.BLUE}
@@ -81,7 +84,7 @@ export default function RoomComponent({
       <div className={styles.roomComponentContainer}>
         <div className={styles.advertisedLabel + " " + styles.floatingLabel}>
           <Text
-            value="AD"
+            value={t("adLabel")}
             type={TextType.HEADLINE}
             size="SMALL"
             colorSchema={ColorSchema.WHITE}
@@ -131,7 +134,7 @@ export default function RoomComponent({
         <div className={styles.price}>
           <Text
             value={
-              "Buy at " +
+              t("purchaseText") +
               purchasbleRoom.price.amount +
               " " +
               purchasbleRoom.price.currency

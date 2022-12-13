@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+
 import styles from "./Pagination.module.css";
 import IconButton from "../IconButton/IconButton";
 import Text from "../Text/Text";
@@ -16,6 +18,7 @@ interface PaginationProps {
 
 export default function Pagination({ collection }: PaginationProps) {
   const router = useRouter();
+  const t = useTranslations("Pagination");
 
   function goToPreviousPage() {
     router.push("/rooms?page=" + (collection.page.number - 1));
@@ -28,25 +31,25 @@ export default function Pagination({ collection }: PaginationProps) {
   if (collection == undefined) {
     return (
       <div className={styles.container}>
-      <IconButton
-        icon={ValidIcons.ARROWLEFT}
-        colorSchema={ColorSchema.BLUE}
-        onClickCallback={goToPreviousPage}
-        enabled={false}
-      />
-      <Text
-        value="Loading"
-        type={TextType.TEXT}
-        size="MEDIUM"
-        colorSchema={ColorSchema.BLACK}
-      />
-      <IconButton
-        icon={ValidIcons.ARROWRIGHT}
-        colorSchema={ColorSchema.BLUE}
-        onClickCallback={goToNextPage}
-        enabled={false}
-      />
-    </div>
+        <IconButton
+          icon={ValidIcons.ARROWLEFT}
+          colorSchema={ColorSchema.BLUE}
+          onClickCallback={goToPreviousPage}
+          enabled={false}
+        />
+        <Text
+          value={t("loading")}
+          type={TextType.TEXT}
+          size="MEDIUM"
+          colorSchema={ColorSchema.BLACK}
+        />
+        <IconButton
+          icon={ValidIcons.ARROWRIGHT}
+          colorSchema={ColorSchema.BLUE}
+          onClickCallback={goToNextPage}
+          enabled={false}
+        />
+      </div>
     );
   } else {
     return (
@@ -59,11 +62,11 @@ export default function Pagination({ collection }: PaginationProps) {
         />
         <Text
           value={
-            "Page: " +
+            t("pageText") +
             collection.page.number +
-            " from " +
+            t("fromText") +
             collection.page.totalPages +
-            " : Total Elements " +
+            t("totalText") +
             collection.page.totalElements
           }
           type={TextType.TEXT}

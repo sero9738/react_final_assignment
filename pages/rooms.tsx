@@ -1,4 +1,5 @@
 import React from "react";
+import { GetStaticPropsContext } from "next";
 import styles from "../styles/Home.module.css";
 import Content from "../components/Content/Content";
 import RoomComponent from "../components/RoomComponent/RoomComponent";
@@ -32,6 +33,7 @@ export async function getServerSideProps(context: {
         9,
         NumberParam.decode(context.query.page) || 1
       ),
+      messages: (await import(`../messages/en.json`)).default,
     },
   };
 }
@@ -69,9 +71,7 @@ export default function Rooms({ sessionUser, rooms, collection }: RoomsProps) {
     alert("Button clicked!");
   }
 
-  React.useEffect(() => {
-    
-  });
+  React.useEffect(() => {});
 
   if (rooms != undefined && rooms != undefined) {
     return (

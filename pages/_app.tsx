@@ -11,11 +11,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const [route, setRoute] = React.useState(Route.LIST);
 
   return (
-    <NextIntlProvider locale="en">
+    <NextIntlProvider locale="en" messages={pageProps.messages}>
       <Head>
         <title>Final Assignment - Rooms Rental Application</title>
       </Head>
-      <Header title="Arrrbnb">
+      <Header>
         <Navigation />
       </Header>
       <Component {...pageProps} />

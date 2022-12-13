@@ -1,0 +1,25 @@
+{
+    "Header": {
+        "title": "Arrrbnb",
+        "roomsNavButton": "Cabins",
+        "createNavButton": "Add cabins"
+    },
+    "CreateRoomForm": {
+        "title": "Add rentable cabin",
+        "titleInputField": "Title",
+        "descriptionInputField": "Description",
+        "imageUrlInputField": "Hero image Url",
+        "submitButton": "Add cabin"
+    },
+    "RoomComponent": {
+        "featuredLabel": "FEATURED",
+        "adLabel": "AD",
+        "purchaseText": "Buy at "
+    },
+    "Pagination": {
+        "loading": "Loading",
+        "pageText": "Page: ",
+        "fromText": " from ",
+        "totalText": " : Total Elements "
+    }
+}
